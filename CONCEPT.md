@@ -61,7 +61,7 @@ The simulation will use a genetic algorithm to favor better-performing car creat
 + A total of **36 cars** will be simulated and evaluated **per generation**.
 + The last **12 cars** will be **dropped**.
 + An additional column will contain the **difference between the current car evaluation with the lower one, called eval delta**.
-+ Cars with **very close eval delta will be dropped, by keeping the first** of the block of close eval deltas.
++ Cars with **very close eval delta will be dropped, by keeping the first** of the block of close eval deltas, **unless 12 cars have already been dropped this way**.
 + The remaining cars will merge into the next generation:
     + Pick hinges from Car1 corresponding to **33% of Car1**, and subtract them from Car1.
     + Pick hinges from Car2 corresponding to **33% of Car2**, and subtract them from Car2.
@@ -71,3 +71,20 @@ The simulation will use a genetic algorithm to favor better-performing car creat
 
 ## Terrain & Obstacle Implementation
 
+**Terrain Generation**
+
+Randomly generated terrain follows a progressive approach:
++ Be ready to generate a square block of terrain, with constant length.
++ **Vertical Shift**: Have a vertical shift value **change the vertical position of the top-right vertex** of the square, clamped within min and max to a reasonable value.
++ When visually reaching the end of the square, generate a new block the same way, making sure the top-left vertex has the same vertical position as the current terrain block.
++ Delete old terrain blocks.
+
+**Side Note**: It's also possible to use a **clamped rate of vertical shift** to prevent building uncrossable hills, or make the blocks rectangular instead of square, and generate their length randomly to make for more randomic terrain. This can also aid generating equivalent random terrain for each generation (although it's probably best to use the same terrain for each car creature, before moving to the next generation?)
+
+**Obstacle Generation**
+
+There should be two standard obstacles generated:
++ Pyramid of triangles
++ Stairs of squares
+
+It's best to use a small terrain area with flat angle to place the obstacles, but that is not certain yet.
