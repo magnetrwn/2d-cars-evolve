@@ -61,7 +61,7 @@ The simulation will use a genetic algorithm to favor better-performing car creat
 + A total of **36 cars** will be simulated and evaluated **per generation**.
 + The last **12 cars** will be **dropped**.
 + An additional column will contain the **difference between the current car evaluation with the lower one, called eval delta**.
-+ Cars with **very close eval delta will be dropped, by keeping the first** of the block of close eval deltas, **unless 12 cars have already been dropped this way**.
++ Cars with **very close eval delta will be dropped, by keeping the first** of the block of close eval deltas, **unless 8 cars have already been dropped this way, starting from the bottom**.
 + The remaining cars will merge into the next generation:
     + Pick hinges from Car1 corresponding to **33% of Car1**, and subtract them from Car1.
     + Pick hinges from Car2 corresponding to **33% of Car2**, and subtract them from Car2.
@@ -83,8 +83,11 @@ Randomly generated terrain follows a progressive approach:
 
 **Obstacle Generation**
 
-There should be two standard obstacles generated:
-+ Pyramid of triangles
-+ Stairs of squares
+There should be two standard obstacles generated, all of which are not static and interact with physics:
++ **Pyramid of triangles**: small triangles forming a pyramid by stacking and filling with flipped triangles, with 3 to 6 layers.
++ **Stairs of squares**: medium-sized but crossable boxes, checking the car creature's ability to move on stairs, with 2 to 4 layers.
++ **The Pond**: harder difficulty obstacle, made up of three structural terrain rectangles forming a container with an open top, aligned with terrain level, and filled with medium-sized circles. A few dynamic long but thin rectangles make up the top bridge, but rushing or slowing down too much may cause these rectangles to move around and let the car creature drop in the circles. Make sure the circles' amount is low, at around 24 (8 columns of 3 circles stacked) per pond maximum, and 6 rectangles on top.
 
-It's best to use a small terrain area with flat angle to place the obstacles, but that is not certain yet.
+Obstacles drop on a small terrain block spawned (instead of the regular angled squares) that has zero angle, to ease placement. Obstacle spawns should be placed every two normal terrain squares.
+
+Obstacles should have an equal 33% chance to spawn, but have random and clamped length of obstacle and layer amount.
