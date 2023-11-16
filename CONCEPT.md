@@ -2,6 +2,8 @@
 
 **This file contains details on what the application should do, to follow through during implementation.**
 
+This is more of a demo than an actual simulation, so while a fast-forward toggle could be implemented, my main focus is on displaying each car one by one evolving, more like a learning tool for GAs.
+
 ## Libraries
 
 Definitely:
